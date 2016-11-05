@@ -5,6 +5,7 @@
 	
     const draw_list = function(){
     	const search_text = $('#search_box').val();
+    	console.log(search_text);
     	$('#todo_ul').html('');
 		$.ajax({
         url      : "/todos",
@@ -14,7 +15,7 @@
         	searchtext : search_text
         },
         success  : function(data) {
-        	console.log(data);
+        	//console.log(data);
 				data.items.forEach(function(todoItem){
 				const li = $('<li>'+todoItem.message+'<input type="checkbox"><button class="delete" id='+todoItem.id+'>Kill</button></li>')
 				const input = li.find('input');

@@ -19,8 +19,7 @@ let todos = [
 				}];
 
 const httpServer = http.createServer(function(req, res){
-	
-	
+	//console.log(req.url);	
  	const parsedUrl = url.parse(req.url);
     const parsedQuery = querystring.parse(parsedUrl.query);
     const method = req.method;
@@ -33,11 +32,16 @@ const httpServer = http.createServer(function(req, res){
         if(req.url.indexOf('/todos') === 0) {
             res.setHeader('Content-Type', 'application/json');
             let localTodos = todos;
+            console.log(parsedQuery.searchtext);
 
             if(parsedQuery.searchtext) {
+            	if(parsedQuery.searchtext === ""){
+            		return res.end(JSON.stringify({items : localTodos}));
+            	} else {
                 localTodos = localTodos.filter(function(obj) {
                     return obj.message.indexOf(parsedQuery.searchtext) >= 0;
                 });
+            }
             }
             return res.end(JSON.stringify({items : localTodos}));
         }
