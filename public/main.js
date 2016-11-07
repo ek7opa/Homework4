@@ -63,7 +63,7 @@ $("#create_button").on('click', function(){
         }),
         contentType : "application/json; charset=utf-8",
         success     : function(data) {
-           location.reload();
+           //location.reload();
            draw_list(); // refresh the list (re-run the search query)
         	
         },
@@ -90,7 +90,7 @@ $(document).on('click','.delete',function(){
         url     : "/todos/" + $(this).prop('id') ,
         type    : 'delete',
         success : function(data) {
-          location.reload();
+          //location.reload();
           draw_list();  // remove the rendering of that item from the UI
         },
         error   : function(data) {
