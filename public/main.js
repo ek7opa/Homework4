@@ -5,7 +5,6 @@
 	
     const draw_list = function(){
     	const search_text = $('#search_box').val();
-    	console.log(search_text);
     	$('#todo_ul').html('');
 		$.ajax({
         url      : "/todos",
@@ -15,7 +14,6 @@
         	searchtext : search_text
         },
         success  : function(data) {
-        	//console.log(data);
 				data.items.forEach(function(todoItem){
 				const li = $('<li>'+todoItem.message+'<input type="checkbox"><button class="delete" id='+todoItem.id+'>Kill</button></li>')
 				const input = li.find('input');
@@ -29,7 +27,7 @@
       				  data        : JSON.stringify(todoItem),
        				 contentType : "application/json; charset=utf-8",
        				 success     : function(data) {
-       				 	
+  
       				  },
       				  error       : function(data) {
        			     alert('Error creating todo');
@@ -87,8 +85,7 @@ $("#create_box").keyup(function(event){
         $("#create_button").click(); //pressing enter on the searchbox will act as a button
     }
 });
-$(document).ready(function(){
-        $(".delete").click(function(todoItem) {
+$(document).on('click','.delete',function(){
              $.ajax({
         url     : "/todos/" + $(this).prop('id') ,
         type    : 'delete',
@@ -100,6 +97,4 @@ $(document).ready(function(){
             alert('Error deleting the item');
         }
     });
-        });
 });
-

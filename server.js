@@ -19,7 +19,6 @@ let todos = [
 				}];
 
 const httpServer = http.createServer(function(req, res){
-	//console.log(req.url);	
  	const parsedUrl = url.parse(req.url);
     const parsedQuery = querystring.parse(parsedUrl.query);
     const method = req.method;
@@ -32,7 +31,6 @@ const httpServer = http.createServer(function(req, res){
         if(req.url.indexOf('/todos') === 0) {
             res.setHeader('Content-Type', 'application/json');
             let localTodos = todos;
-            console.log(parsedQuery.searchtext);
 
             if(parsedQuery.searchtext) {
             	if(parsedQuery.searchtext === ""){
@@ -47,7 +45,6 @@ const httpServer = http.createServer(function(req, res){
         }
     }
     if(method === 'PUT') {
-    	//console.log(req.url);
         if(req.url.indexOf('/todos') === 0) {
             // read the content of the message
             let body = '';
@@ -59,12 +56,9 @@ const httpServer = http.createServer(function(req, res){
 
                 // find the todo in our todos array and replace it with the new object
                 for(let i = 0; i < todos.length; i++) {
-                	//console.log("todos.id = "+ todos[i].id);
-                	//console.log('jsonObj.id = ' + jsonObj.id);
                     if(todos[i].id === (jsonObj.id)) { // found the same object
                     	
                         todos[i] = jsonObj; // replace the old object with the new object
-                        //console.log('ran');
                         res.setHeader('Content-Type', 'application/json');
                         res.statusCode = 200;
                         return res.end(JSON.stringify(jsonObj));
@@ -112,7 +106,6 @@ const httpServer = http.createServer(function(req, res){
         }
     }
 	const fileLocation = path.join(originPath, req.url);
-	//console.log(fileLocation);
 		fs.readFile(fileLocation, function(err, data){
 			if(err){
 				res.writeHead(404, 'File not found');
